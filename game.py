@@ -9,20 +9,24 @@ jugador2 = Jugador("Jugador 2", "Verde")
 tablero = Tablero()
 
 # Agregar fichas al tablero al inicio del juego
-tablero.agregar_ficha(Ficha("R"), 0)
-tablero.agregar_ficha(Ficha("V"), 1)
-tablero.agregar_ficha(Ficha("A"), 2)
-tablero.agregar_ficha(Ficha("M"), 3)
-tablero.agregar_ficha(Ficha("R"), 4)
-tablero.agregar_ficha(Ficha("V"), 5)
-tablero.agregar_ficha(Ficha("A"), 6)
-tablero.agregar_ficha(Ficha("M"), 7)
 
-tablero.agregar_ficha(Ficha("R"), 51)
-tablero.agregar_ficha(Ficha("V"), 50)
-tablero.agregar_ficha(Ficha("A"), 49)
-tablero.agregar_ficha(Ficha("M"), 48)
-tablero.agregar_ficha(Ficha("R"), 47)
+for i in range(52):
+    tablero.agregar_ficha(Ficha(i%10), i)
+    
+# tablero.agregar_ficha(Ficha("R"), 0)
+# tablero.agregar_ficha(Ficha("V"), 1)
+# tablero.agregar_ficha(Ficha("A"), 2)
+# tablero.agregar_ficha(Ficha("M"), 3)
+# tablero.agregar_ficha(Ficha("R"), 4)
+# tablero.agregar_ficha(Ficha("V"), 5)
+# tablero.agregar_ficha(Ficha("A"), 6)
+# tablero.agregar_ficha(Ficha("M"), 7)
+
+# tablero.agregar_ficha(Ficha("R"), 51)
+# tablero.agregar_ficha(Ficha("V"), 50)
+# tablero.agregar_ficha(Ficha("A"), 49)
+# tablero.agregar_ficha(Ficha("M"), 48)
+# tablero.agregar_ficha(Ficha("R"), 47)
 
 # ... (agregar el resto de las fichas iniciales)
 
