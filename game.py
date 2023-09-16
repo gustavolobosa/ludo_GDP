@@ -36,6 +36,7 @@ class Game:
                         starting_player = jugador
                         dado_mayor = dado
         UI.mostrar_mensaje(f"{jugador.nombre} comenzara la partida {dado}")
+        UI.mostrar_linea()
         
         return starting_player
 
@@ -46,12 +47,14 @@ class Game:
                 
                 try:
                         self.cantidad_jugadores = int(cantidad_jugadores)
-                        if self.cantidad_jugadores < 1 or self.cantidad_jugadores > 4:
+                        if self.cantidad_jugadores < 2 or self.cantidad_jugadores > 4:
                                 self.cantidad_jugadores = 0
-                                print("Ingrese un número válido entre 1 y 4")
+                                print("Ingrese un número válido entre 2 y 4")
                 except:
                         cantidad_jugadores = 0
-                        print("Ingrese un número válido entre 1 y 4")
+                        print("Ingrese un número válido entre 2 y 4")
+                
+                UI.mostrar_linea()
 
     def play(self, jugador_inicial):
         UI.mostrar_mensaje("Jugando...")
