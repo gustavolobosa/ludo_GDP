@@ -1,4 +1,5 @@
 import random
+from ui import UI
 
 class Jugador:
     def __init__(self, nombre, color):
@@ -8,10 +9,10 @@ class Jugador:
 
     def lanzar_dado(self):
         return random.randint(1, 6)
-
+ 
     def realizar_movida(self):
         dado = self.lanzar_dado()
-        print(f"{self.nombre} lanzó un {dado}")
+        UI.mostrar_mensaje(f"{self.nombre} lanzó un {dado}")
 
     def mover_ficha(self, ficha, casillas):
         # Verificar si la ficha puede moverse según el valor del dado

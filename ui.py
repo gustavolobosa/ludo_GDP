@@ -7,7 +7,13 @@ class UI:
     
     @staticmethod
     def mostrar_jugador(jugador):
-        print(jugador)
+        print(jugador.nombre + " - " + jugador.color)
+        
+    @staticmethod
+    def mostrar_fichas_jugador(jugador):
+        for ficha in jugador.fichas:
+            print(ficha.color,"Libre:",ficha.libre ,"Coronada:",ficha.coronada)
+        
     
     @staticmethod
     def mostrar_tablero(tablero):
@@ -95,6 +101,9 @@ class UI:
                     print("|"+str(tablero.casillas_generales[28-(casilla-26)].color), end="|")
                 else:
                     print("| |", end="") 
+                    
+                if casilla == 28:
+                    print()
             
 
     def mostrar_titulo():
@@ -102,11 +111,11 @@ class UI:
          _                                 
         | |                              
         | |     _   _  _ _   ___  
-        | |   _| | | |  _ \ / _ \
+        | |   _| | | |  _ \ / _ \ 
         | |__| | |_| | |_) | (_) |
         |_____/ \___/|_ _ / \___/         
-              \n''')
-        
+        \n''')
+
     def mostrar_linea():
         print("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -")
         
