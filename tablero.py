@@ -1,3 +1,5 @@
+from ficha import Ficha
+
 class Tablero:
     def __init__(self):
         self.casillas_generales = [None] * 52

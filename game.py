@@ -15,14 +15,15 @@ class Game:
     # Repartir fichas
     def crear_jugadores(self):
         for i in range(self.cantidad_jugadores):
-                self.jugadores.append(Jugador("jugador"+str(i+1), self.colores[i]))  
-        
-        for j in range(4):
-            self.jugadores[i].fichas.append(Ficha(self.colores[i]))    
+            self.jugadores.append(Jugador("jugador"+str(i+1), self.colores[i]))  
+            
+            for _ in range(4):
+                self.jugadores[i].fichas.append(Ficha(self.jugadores[i].color, i*13+3))
             
         for jugador in self.jugadores:
                 UI.mostrar_jugador(jugador)
                 UI.mostrar_fichas_jugador(jugador)
+                UI.mostrar_linea()
     
     # Buscar jugador que parte
     def encontrar_jugador_inicial(self):
@@ -35,7 +36,7 @@ class Game:
                 if dado > dado_mayor:
                         starting_player = jugador
                         dado_mayor = dado
-        UI.mostrar_mensaje(f"{jugador.nombre} comenzara la partida {dado}")
+        UI.mostrar_mensaje(f"{jugador.nombre} comenzara la partida")
         UI.mostrar_linea()
         
         return starting_player
@@ -55,9 +56,16 @@ class Game:
                         print("Ingrese un número válido entre 2 y 4")
                 
                 UI.mostrar_linea()
+                
+    def posicionar_fichas(self):
+        for i in range(self.cantidad_jugadores):
+            self.tablero.agregar_ficha(self.jugadores[i].fichas[0], self.jugadores[i].fichas[0].posicion_relativa)
+            
+        UI.mostrar_tablero(self.tablero)
 
     def play(self, jugador_inicial):
         UI.mostrar_mensaje("Jugando...")
+        UI.test()
     
     def start(self):
         UI.mostrar_titulo()
@@ -65,7 +73,9 @@ class Game:
         
         self.definir_cantidad_jugadores()
         self.crear_jugadores()
+        self.posicionar_fichas()
         jugador_inicial = self.encontrar_jugador_inicial()
+        
         
         self.play(jugador_inicial)
         
