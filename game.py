@@ -27,19 +27,19 @@ class Game:
     
     # Buscar jugador que parte
     def encontrar_jugador_inicial(self):
-        starting_player = self.jugadores[0]
-        dado_mayor = starting_player.lanzar_dado()
+        dado_mayor = 0
+        index_starting_player = 0
         
         for jugador in self.jugadores:
                 dado = jugador.lanzar_dado()
-                UI.mostrar_mensaje(f"{jugador.nombre} lanzó un {dado}")
                 if dado > dado_mayor:
                         starting_player = jugador
+                        index_starting_player = self.jugadores.index(starting_player)
                         dado_mayor = dado
-        UI.mostrar_mensaje(f"{jugador.nombre} comenzara la partida")
+        UI.mostrar_mensaje(f"{starting_player.nombre} comenzara la partida")
         UI.mostrar_linea()
         
-        return starting_player
+        return index_starting_player
 
     def definir_cantidad_jugadores(self):
         
@@ -59,13 +59,49 @@ class Game:
                 
     def posicionar_fichas(self):
         for i in range(self.cantidad_jugadores):
-            self.tablero.agregar_ficha(self.jugadores[i].fichas[0], self.jugadores[i].fichas[0].posicion_relativa)
+            self.tablero.agregar_ficha(self.jugadores[i].fichas[0])
             
         UI.mostrar_tablero(self.tablero)
+        
+    def mover_ficha(self, jugador, ficha, casillas):
+        
+        self.tablero.quitar_ficha(ficha)
+        
+        ficha.posicion_relativa = (ficha.posicion_relativa + casillas) % 52
+        ficha.posicion_absoluta = ficha.posicion_absoluta + casillas
+        
+        if self.verificar_ganador():
+            return True
+        
+        self.tablero.agregar_ficha(ficha)
+        
+        UI.mostrar_fichas_jugador(jugador)
+        UI.mostrar_tablero(self.tablero)
+    
+    def verificar_ganador(self):
+        for jugador in self.jugadores:
+            for ficha in jugador.fichas:
+                if ficha.posicion_absoluta >= 58:
+                    UI.mostrar_mensaje(f"{jugador.nombre} ha ganado la partida")
+                    return True
+                
+        return False
 
-    def play(self, jugador_inicial):
+    def play(self, index_jugador_inicial):
         UI.mostrar_mensaje("Jugando...")
-        UI.test()
+        
+        turno = index_jugador_inicial
+        print(turno)
+        while True:
+            input("Presione enter para continuar")
+            casillas = self.jugadores[turno].lanzar_dado()
+            
+            if self.mover_ficha(self.jugadores[turno], self.jugadores[turno].fichas[0], casillas):
+                return True
+            
+            turno += 1
+            turno = turno % self.cantidad_jugadores
+            
     
     def start(self):
         UI.mostrar_titulo()
@@ -74,10 +110,10 @@ class Game:
         self.definir_cantidad_jugadores()
         self.crear_jugadores()
         self.posicionar_fichas()
-        jugador_inicial = self.encontrar_jugador_inicial()
+        index_jugador_inicial = self.encontrar_jugador_inicial()
         
         
-        self.play(jugador_inicial)
+        self.play(index_jugador_inicial)
         
 
 if __name__ == "__main__":
