@@ -53,29 +53,20 @@ class Game:
                         cantidad_jugadores = 0
                         print("Ingrese un número válido entre 1 y 4")
 
-# Agregar fichas al tablero al inicio del juego
-
-for i in range(52):
-    tablero.agregar_ficha(Ficha(i%10), i)
-
-# ... (agregar el resto de las fichas iniciales)
-
-UI.mostrar_titulo()
-
-# Empezar el juego
-while True:
-    for jugador in jugadores:
-        input(f"Presiona Enter para que {jugador.nombre} juegue.")
-        jugador.realizar_movida()
-
-        # Aquí deberías agregar la lógica para mover las fichas según el dado
-
-        # Mostrar el estado actual del tablero
-        UI.mostrar_tablero(tablero)
-
-        # Verificar si hay un ganador y terminar el juego si lo hay
+    def play(self, jugador_inicial):
+        UI.mostrar_mensaje("Jugando...")
+    
+    def start(self):
+        UI.mostrar_titulo()
+        UI.mostrar_linea()
         
-# Start the game
+        self.definir_cantidad_jugadores()
+        self.crear_jugadores()
+        jugador_inicial = self.encontrar_jugador_inicial()
+        
+        self.play(jugador_inicial)
+        
+
 if __name__ == "__main__":
     game = Game()
     game.start()
