@@ -75,11 +75,12 @@ class Game:
                 
                 UI.mostrar_linea()
                 
-    def posicionar_fichas(self):
-        for i in range(self.cantidad_jugadores):
-            self.tablero.agregar_ficha(self.jugadores[i].fichas[0])
+    # def posicionar_fichas(self, jugador):
+    #     for i in range(self.cantidad_jugadores):
+    #         self.jugadores[i].fichas[0]
+    #         self.tablero.agregar_ficha(self.jugadores[i].fichas[0])
             
-        UI.mostrar_tablero(self.tablero)
+    #     UI.mostrar_tablero(self.tablero)
         
     def mover_ficha(self, jugador, ficha, casillas):
         
@@ -94,7 +95,6 @@ class Game:
         self.tablero.agregar_ficha(ficha)
         
         UI.mostrar_fichas_jugador(jugador)
-        UI.mostrar_tablero(self.tablero)
     
     def verificar_ganador(self):
         for jugador in self.jugadores:
@@ -120,11 +120,12 @@ class Game:
                     self.jugadores[turno].fichas[0].libre = True
                     UI.mostrar_mensaje(f"{self.jugadores[turno].nombre} ha sacado un {casillas} y ha liberado una ficha")
                     UI.mostrar_fichas_jugador(self.jugadores[turno])
-                    UI.mostrar_tablero(self.tablero)
+                    
             else:
                 if self.mover_ficha(self.jugadores[turno], self.jugadores[turno].ficha_a_mover(), casillas):
                     return True
-            
+                
+            UI.mostrar_tablero(self.tablero)
             turno += 1
             turno = turno % self.cantidad_jugadores
             
