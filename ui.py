@@ -22,7 +22,7 @@ class UI:
         for casilla in range(len(tablero.casillas_generales)):
             
             # imprimir espacios vacios a la izquierda del tablero
-            if casilla == 0 or (casilla >= 4 and casilla <= 7) or (casilla >= 21 and casilla <= 26):
+            if casilla == 0 or (casilla >= 4 and casilla <= 7) or casilla == 21 or (casilla >=23 and casilla <= 26):
                 print(" "*17, end="")
             
             # imprimir fichas no liberadas amarillas
@@ -41,8 +41,33 @@ class UI:
                             amarillas_libres += 1
                 for p in range(4-amarillas_libres):
                     print(f"{Fore.YELLOW}"+"M ", end=f"{Style.RESET_ALL}")
+                    
+                for _ in range(amarillas_libres):
+                    print(" "*2, end="")
 
                 print(" "*3, end="")
+                
+            azules_libres = 0
+            
+            if casilla == 22:
+                print(" "*6, end="")
+                
+                for ficha in range(len(tablero.casillas_azules)):
+                    if tablero.casillas_azules[ficha] and tablero.casillas_azules[ficha].color == "A":
+                        if tablero.casillas_azules[ficha].libre:
+                            azules_libres += 1
+                            
+                for ficha in range(len(tablero.casillas_generales)):
+                    if tablero.casillas_generales[ficha] and tablero.casillas_generales[ficha].color == "A":
+                        if tablero.casillas_generales[ficha].libre:
+                            azules_libres += 1
+                for p in range(4-azules_libres):
+                    print(f"{Fore.BLUE}"+"A ", end=f"{Style.RESET_ALL}")
+                
+                for _ in range(azules_libres):
+                    print(" "*2, end="")
+                print(" "*3, end="")
+                
             # imprimir primeras 3 casillas
             if casilla == 0:
                 if tablero.casillas_generales[0]:
@@ -97,6 +122,9 @@ class UI:
                                 rojas_libres += 1
                     for p in range(4-rojas_libres):
                         print(f"{Fore.RED}"+"R ", end=f"{Style.RESET_ALL}")
+                    
+                    for _ in range(rojas_libres):
+                        print(" "*2, end="")
 
                     print(" "*3, end="")
 
@@ -203,7 +231,30 @@ class UI:
                 if tablero.casillas_azules[0] and casilla == 25:
                     c1 = f"|{Fore.BLUE}"+"A"+f"{Style.RESET_ALL}|"
                 
-                print(c1 + c2 + c3)
+                print(c1 + c2 + c3, end="")
+                
+                verdes_libres = 0
+                if casilla == 22:
+                    print(" "*4, end="")
+                    
+                    for ficha in range(len(tablero.casillas_verdes)):
+                        if tablero.casillas_verdes[ficha] and tablero.casillas_verdes[ficha].color == "V":
+                            if tablero.casillas_verdes[ficha].libre:
+                                verdes_libres += 1
+                                
+                    for ficha in range(len(tablero.casillas_generales)):
+                        if tablero.casillas_generales[ficha] and tablero.casillas_generales[ficha].color == "V":
+                            if tablero.casillas_generales[ficha].libre:
+                                verdes_libres += 1
+                    for p in range(4-verdes_libres):
+                        print(f"{Fore.GREEN}"+"V ", end=f"{Style.RESET_ALL}")
+                    
+                    for _ in range(verdes_libres):
+                        print(" "*2, end="")
+
+                print()
+                
+                
             
             # imprimir ultimas 3 casillas ala inferior "| || || |"
             elif casilla >= 26 and casilla <= 28:
