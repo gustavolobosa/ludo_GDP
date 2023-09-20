@@ -29,6 +29,7 @@ class Game:
     def encontrar_jugador_inicial(self):
         dado_mayor = 0
         index_starting_player = 0
+        casos = []
         
         for jugador in self.jugadores:
                 dado = jugador.lanzar_dado()
@@ -36,6 +37,23 @@ class Game:
                         starting_player = jugador
                         index_starting_player = self.jugadores.index(starting_player)
                         dado_mayor = dado
+                        casos = []
+                        casos.append(jugador)
+                elif dado == dado_mayor:
+                        casos.append(jugador)
+        while len(casos) > 1:
+            casos1 = []
+            for jugador in casos:
+                dado = jugador.lanzar_dado()
+                if dado > dado_mayor:
+                        starting_player = jugador
+                        index_starting_player = self.jugadores.index(starting_player)
+                        dado_mayor = dado
+                        casos1 = []
+                        casos1.append(jugador)
+                elif dado == dado_mayor:
+                        casos1.append(jugador)
+            casos = casos1
         UI.mostrar_mensaje(f"{starting_player.nombre} comenzara la partida")
         UI.mostrar_linea()
         
