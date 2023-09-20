@@ -44,7 +44,7 @@ class UI:
                     
                 for _ in range(amarillas_libres):
                     print(" "*2, end="")
-
+                    
                 print(" "*3, end="")
                 
             azules_libres = 0
@@ -66,6 +66,8 @@ class UI:
                 
                 for _ in range(azules_libres):
                     print(" "*2, end="")
+                  
+
                 print(" "*3, end="")
                 
             # imprimir primeras 3 casillas
@@ -266,7 +268,6 @@ class UI:
                     
                 if casilla == 28:
                     print()
-            
 
     def mostrar_titulo():
         print('''
