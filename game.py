@@ -17,7 +17,7 @@ class Game:
         for i in range(self.cantidad_jugadores):
             self.jugadores.append(Jugador("jugador"+str(i+1)+self.colores[i], self.colores[i]))  
             
-            for _ in range(4):
+            for _ in range(2):
                 self.jugadores[i].fichas.append(Ficha(self.jugadores[i].color, i*13+3))
             
         for jugador in self.jugadores:
@@ -121,6 +121,9 @@ class Game:
                     UI.mostrar_mensaje(f"{self.jugadores[turno].nombre} ha sacado un {casillas} y ha liberado una ficha")
                     UI.mostrar_fichas_jugador(self.jugadores[turno])
                     UI.mostrar_tablero(self.tablero)
+            elif self.jugadores[turno].ninguna_fichas_en_casa():
+                if self.mover_ficha(self.jugadores[turno], self.jugadores[turno].ficha_a_mover(), casillas):
+                    return True
             else:
                 if self.mover_ficha(self.jugadores[turno], self.jugadores[turno].ficha_a_mover(), casillas):
                     return True
