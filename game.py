@@ -119,9 +119,10 @@ class Game:
                     self.tablero.agregar_ficha(self.jugadores[turno].fichas[0])
                     self.jugadores[turno].fichas[0].libre = True
                     UI.mostrar_mensaje(f"{self.jugadores[turno].nombre} ha sacado un {casillas} y ha liberado una ficha")
+                    UI.mostrar_fichas_jugador(self.jugadores[turno])
                     UI.mostrar_tablero(self.tablero)
             else:
-                if self.mover_ficha(self.jugadores[turno], self.jugadores[turno].fichas[0], casillas):
+                if self.mover_ficha(self.jugadores[turno], self.jugadores[turno].ficha_a_mover(), casillas):
                     return True
             
             turno += 1
