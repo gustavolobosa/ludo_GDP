@@ -14,7 +14,7 @@ class Jugador:
     
     def todas_ficha_en_casa(self):
         for ficha in self.fichas:
-            if ficha.libre:
+            if ficha.libre and not ficha.meta:
                 return False	
         return True
     def ninguna_fichas_en_casa(self):
@@ -25,27 +25,27 @@ class Jugador:
     def fichas_en_juego(self):
         fichas = []
         for ficha in self.fichas:
-            if ficha.libre:
+            if ficha.libre and not ficha.meta:
                 fichas.append(ficha)
         return fichas
 
     def ficha_a_mover(self):
         fichas = self.fichas_en_juego()
-        index_ficha = random.randint(0, len(fichas)-1)
-        return fichas[index_ficha]
+        if fichas:
+            index_ficha = random.randint(0, len(fichas)-1)
+            return fichas[index_ficha]
 
     
     def siguente_ficha_libre(self):
         for ficha in self.fichas:
-            if ficha.libre:
+            if not ficha.libre:
                 return ficha
         return None
-    
-    def liberar_sino_mover(self):
-        probabilidades = random.randint(1, 10)
-        if probabilidades <= 8:
-            return True
-        else:
-            return False
+    def verificar_victoria(self):
+        for ficha in self.fichas:
+            if not ficha.meta:
+                return False
+        return True
+
 
             

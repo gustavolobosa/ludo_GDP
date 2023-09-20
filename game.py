@@ -17,7 +17,7 @@ class Game:
         for i in range(self.cantidad_jugadores):
             self.jugadores.append(Jugador("jugador"+str(i+1)+self.colores[i], self.colores[i]))  
             
-            for _ in range(2):
+            for _ in range(3):
                 self.jugadores[i].fichas.append(Ficha(self.jugadores[i].color, i*13+3))
             
         for jugador in self.jugadores:
@@ -91,17 +91,18 @@ class Game:
         
         if self.verificar_ganador():
             return True
-        
+
         self.tablero.agregar_ficha(ficha)
-        
-        UI.mostrar_fichas_jugador(jugador)
+
+        if self.verificar_ganador():
+            return True
+        # UI.mostrar_fichas_jugador(jugador)
     
     def verificar_ganador(self):
         for jugador in self.jugadores:
-            for ficha in jugador.fichas:
-                if ficha.posicion_absoluta >= 58:
-                    UI.mostrar_mensaje(f"{jugador.nombre} ha ganado la partida")
-                    return True
+            if jugador.verificar_victoria():
+                UI.mostrar_mensaje(f"{jugador.nombre} ha ganado")
+                return True
                 
         return False
 
@@ -116,22 +117,28 @@ class Game:
             casillas = self.jugadores[turno].lanzar_dado()
             if self.jugadores[turno].todas_ficha_en_casa():
                 if casillas == 1 or casillas == 6:
-                    self.tablero.agregar_ficha(self.jugadores[turno].fichas[0])
-                    self.jugadores[turno].fichas[0].libre = True
+                    ficha = self.jugadores[turno].siguente_ficha_libre()
+                    self.tablero.agregar_ficha(ficha)
+                    ficha.liberar()
                     UI.mostrar_mensaje(f"{self.jugadores[turno].nombre} ha sacado un {casillas} y ha liberado una ficha")
-                    UI.mostrar_fichas_jugador(self.jugadores[turno])
-<<<<<<< HEAD
-                    UI.mostrar_tablero(self.tablero)
+                    
             elif self.jugadores[turno].ninguna_fichas_en_casa():
                 if self.mover_ficha(self.jugadores[turno], self.jugadores[turno].ficha_a_mover(), casillas):
                     return True
-=======
-                    
->>>>>>> a91478a969afc81fe7e76ab4fc5048b97f18af67
             else:
+                if casillas == 1 or casillas == 6:
+                     if self.tablero.verificar_casilla_salida(self.jugadores[turno]):
+                        ficha = self.jugadores[turno].siguente_ficha_libre()
+                        self.tablero.agregar_ficha(ficha)
+                        ficha.liberar()
+                        UI.mostrar_mensaje(f"{self.jugadores[turno].nombre} ha liberado una ficha")
+                else:
+                    if self.mover_ficha(self.jugadores[turno], self.jugadores[turno].ficha_a_mover(), casillas):
+                        return True    
                 if self.mover_ficha(self.jugadores[turno], self.jugadores[turno].ficha_a_mover(), casillas):
                     return True
                 
+            UI.mostrar_fichas_jugador(self.jugadores[turno])
             UI.mostrar_tablero(self.tablero)
             turno += 1
             turno = turno % self.cantidad_jugadores

@@ -14,10 +14,22 @@ class Tablero:
             return True,None
         else:
             return False,casilla 
+    def verificar_casilla_salida(self, jugador):
+        posicion = jugador.fichas[0].posicion_salia
+        casilla = self.casillas_generales[posicion]
+        if casilla == None:
+            return True
+        elif casilla in jugador.fichas:
+            return False
+        else:
+            return True
+
 
     def agregar_ficha(self, ficha):
         
-        if ficha.posicion_absoluta >= 52:
+        if ficha.posicion_absoluta >= 58:
+            ficha.en_meta()
+        elif ficha.posicion_absoluta >= 52:
             posicion = ficha.posicion_absoluta - 52
             
             if ficha.color == "R":
@@ -38,7 +50,7 @@ class Tablero:
 
     def quitar_ficha(self, ficha):
                 
-        if ficha.posicion_absoluta >= 52:
+        if ficha.posicion_absoluta >= 52 and ficha.posicion_absoluta < 58:
             posicion = ficha.posicion_absoluta - 52
             if ficha.color == "R":
                 self.casillas_rojas[posicion] = None

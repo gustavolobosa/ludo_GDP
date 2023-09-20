@@ -13,7 +13,7 @@ class UI:
     @staticmethod
     def mostrar_fichas_jugador(jugador):
         for ficha in jugador.fichas:
-            print(ficha.color,"Libre:",ficha.libre ,"Coronada:",ficha.coronada, "posicion relativa:", ficha.posicion_relativa, "posicion absoluta:", ficha.posicion_absoluta)
+            print(ficha.color,"Libre:",ficha.libre ,"Meta:",ficha.meta,"Coronada:",ficha.coronada, "posicion relativa:", ficha.posicion_relativa, "posicion absoluta:", ficha.posicion_absoluta)
         
     
     @staticmethod
