@@ -15,7 +15,7 @@ class Game:
     # Repartir fichas
     def crear_jugadores(self):
         for i in range(self.cantidad_jugadores):
-            self.jugadores.append(Jugador("jugador"+str(i+1), self.colores[i]))  
+            self.jugadores.append(Jugador("jugador"+str(i+1)+self.colores[i], self.colores[i]))  
             
             for _ in range(4):
                 self.jugadores[i].fichas.append(Ficha(self.jugadores[i].color, i*13+3))
@@ -109,13 +109,20 @@ class Game:
         UI.mostrar_mensaje("Jugando...")
         
         turno = index_jugador_inicial
-        print(turno)
+    
         while True:
+            print(turno)
             input("Presione enter para continuar")
             casillas = self.jugadores[turno].lanzar_dado()
-            
-            if self.mover_ficha(self.jugadores[turno], self.jugadores[turno].fichas[0], casillas):
-                return True
+            if self.jugadores[turno].todas_ficha_en_casa():
+                if casillas == 1 or casillas == 6:
+                    self.tablero.agregar_ficha(self.jugadores[turno].fichas[0])
+                    self.jugadores[turno].fichas[0].libre = True
+                    UI.mostrar_mensaje(f"{self.jugadores[turno].nombre} ha sacado un {casillas} y ha liberado una ficha")
+                    UI.mostrar_tablero(self.tablero)
+            else:
+                if self.mover_ficha(self.jugadores[turno], self.jugadores[turno].fichas[0], casillas):
+                    return True
             
             turno += 1
             turno = turno % self.cantidad_jugadores
@@ -127,7 +134,7 @@ class Game:
         
         self.definir_cantidad_jugadores()
         self.crear_jugadores()
-        self.posicionar_fichas()
+        #self.posicionar_fichas()
         index_jugador_inicial = self.encontrar_jugador_inicial()
         
         

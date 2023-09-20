@@ -11,3 +11,10 @@ class Jugador:
         dado = random.randint(1, 6)
         UI.mostrar_mensaje(f"{self.nombre} lanzó un {dado}")
         return dado
+    
+    def todas_ficha_en_casa(self):
+        for ficha in self.fichas:
+            if ficha.libre:
+                return False	
+        return True
+            

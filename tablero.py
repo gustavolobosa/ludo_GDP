@@ -8,6 +8,13 @@ class Tablero:
         self.casillas_azules = [None] * 6  
         self.casillas_amarillas = [None] * 6
 
+    def verificar_casilla_generales(self, posicion):
+        casilla = self.casillas_generales[posicion]
+        if casilla == None:
+            return True,None
+        else:
+            return False,casilla 
+
     def agregar_ficha(self, ficha):
         
         if ficha.posicion_absoluta >= 52:
@@ -23,6 +30,10 @@ class Tablero:
                 self.casillas_amarillas[posicion] = ficha
         else:
             posicion = ficha.posicion_relativa
+            verificacion,fichas_presente = self.verificar_casilla_generales(posicion)
+            if not verificacion:
+                self.quitar_ficha(fichas_presente)
+                fichas_presente.encarcelar()
             self.casillas_generales[posicion] = ficha
 
     def quitar_ficha(self, ficha):
