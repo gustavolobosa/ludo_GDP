@@ -56,9 +56,6 @@ class Game:
         
         return index_starting_player
     
-    def esperar_tecla(self):
-        print("Presiona cualquier tecla para continuar...")
-        keyboard.read_event()
 
     def definir_cantidad_jugadores(self):
         
@@ -115,7 +112,7 @@ class Game:
         turno = index_jugador_inicial
     
         while True:
-            self.esperar_tecla()
+            input("Presione enter para continuar")
             casillas = self.jugadores[turno].lanzar_dado()
             if self.jugadores[turno].todas_ficha_en_casa():
                 if casillas == 1 or casillas == 6:
@@ -138,7 +135,6 @@ class Game:
                 if self.mover_ficha(self.jugadores[turno], self.jugadores[turno].ficha_a_mover(), casillas):
                     return True
                 
-            UI.mostrar_fichas_jugador(self.jugadores[turno])
             UI.mostrar_tablero(self.tablero)
             turno += 1
             turno = turno % self.cantidad_jugadores
