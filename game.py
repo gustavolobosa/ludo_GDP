@@ -3,6 +3,7 @@ from jugador import Jugador
 from tablero import Tablero 
 from ui import UI
 import random
+import keyboard
 
 class Game:
     # Creación del juego
@@ -54,6 +55,10 @@ class Game:
         UI.mostrar_linea()
         
         return index_starting_player
+    
+    def esperar_tecla(self):
+        print("Presiona cualquier tecla para continuar...")
+        keyboard.read_event()
 
     def definir_cantidad_jugadores(self):
         
@@ -110,7 +115,7 @@ class Game:
         turno = index_jugador_inicial
     
         while True:
-            input("Presione enter para continuar")
+            self.esperar_tecla()
             casillas = self.jugadores[turno].lanzar_dado()
             if self.jugadores[turno].todas_ficha_en_casa():
                 if casillas == 1 or casillas == 6:
