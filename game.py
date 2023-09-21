@@ -20,10 +20,6 @@ class Game:
             for _ in range(3):
                 self.jugadores[i].fichas.append(Ficha(self.jugadores[i].color, i*13+3))
             
-        for jugador in self.jugadores:
-                UI.mostrar_jugador(jugador)
-                UI.mostrar_fichas_jugador(jugador)
-                UI.mostrar_linea()
     
     # Buscar jugador que parte
     def encontrar_jugador_inicial(self):
@@ -85,9 +81,10 @@ class Game:
     def mover_ficha(self, jugador, ficha, casillas):
         
         self.tablero.quitar_ficha(ficha)
-        
+
         ficha.posicion_relativa = (ficha.posicion_relativa + casillas) % 52
         ficha.posicion_absoluta = ficha.posicion_absoluta + casillas
+
         
         if self.verificar_ganador():
             return True
@@ -108,11 +105,11 @@ class Game:
 
     def play(self, index_jugador_inicial):
         UI.mostrar_mensaje("Jugando...")
-        
+        UI.mostrar_linea()
+        UI.mostrar_tablero(self.tablero)
         turno = index_jugador_inicial
     
         while True:
-            print(turno)
             input("Presione enter para continuar")
             casillas = self.jugadores[turno].lanzar_dado()
             if self.jugadores[turno].todas_ficha_en_casa():
@@ -132,9 +129,7 @@ class Game:
                         self.tablero.agregar_ficha(ficha)
                         ficha.liberar()
                         UI.mostrar_mensaje(f"{self.jugadores[turno].nombre} ha liberado una ficha")
-                else:
-                    if self.mover_ficha(self.jugadores[turno], self.jugadores[turno].ficha_a_mover(), casillas):
-                        return True    
+                   
                 if self.mover_ficha(self.jugadores[turno], self.jugadores[turno].ficha_a_mover(), casillas):
                     return True
                 
